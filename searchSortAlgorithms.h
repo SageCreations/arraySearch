@@ -19,6 +19,26 @@ int seqSearch(const elemType list[], int length, const elemType& item)
 } //end seqSearch
 
 template <class elemType>
+int seqSearchRange(const elemType list[], int first, int last, const elemType& item, int &compCount)
+{
+    int loc; 
+    bool found = false;
+
+    loc = first;
+
+    while (loc <= last && !found) {
+        
+        if (list[loc] == item) {
+            found = true;
+        } else {
+            loc++;
+        }
+        compCount += 1;
+    }
+    return (found ? loc : -1);
+}
+
+template <class elemType>
 int seqSearch(const elemType list[], int length,
                      const elemType& item, int &compCount)
 {
@@ -93,6 +113,41 @@ int binarySearch(const elemType list[], int length,
 
     return (found ? mid : -1);
 } //end binarySearch
+
+template <class elemType>
+int binarySearch15(const elemType list[], int length, 
+                 const elemType& item, int &compCount)
+{
+    int first = 0;
+    int last = length - 1;
+    int mid;
+
+    bool found = false;
+
+    while (last - first > 15 && !found) {
+        mid = (first + last) / 2;
+
+        compCount += 1;
+        if (list[mid] == item) {
+            found = true;
+        } else {
+            
+            compCount += 1;
+            if (list[mid] > item) {
+                last = mid - 1;
+            } else {
+                first = mid + 1;
+            }
+        }
+    }
+
+    if (found) {
+        return mid;
+    } else {
+        // seq search thru the last 15 candidates
+        return ( seqSearchRange(list, first, last, item, compCount) );
+    }
+}
 
 template <class elemType>
 void bubbleSort(elemType list[], int length)
