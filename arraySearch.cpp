@@ -32,7 +32,8 @@ int main()
 
 	cout << "Using sequential search : " ;
 
-    loc = seqSearch(intList, SIZE, num);
+	comparisons = 0;
+    loc = seqSearch(intList, SIZE, num, comparisons);
     if (loc != -1)
 		cout << "Item found at " << loc
 			 << ";  Number of comparisons = "
@@ -45,7 +46,7 @@ int main()
 	cout << "Using binary search : " ;
 
     comparisons = 0;
-	loc = binarySearch(intList, SIZE, num);
+	loc = binarySearch(intList, SIZE, num, comparisons);
 
 	if (loc != -1)
 		cout << "Item found at " << loc
